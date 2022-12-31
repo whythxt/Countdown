@@ -7,30 +7,27 @@
 
 import SwiftUI
 
-struct PrimaryButtonStyle: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .font(.title3)
-            .foregroundColor(.blue)
-            .frame(width: 40, height: 40)
-            .background(.regularMaterial)
-            .cornerRadius(50)
-    }
-}
-
 struct ContentView: View {
+    @State private var showingEventSheet = false
+
     var eventsRows: [GridItem] {
         [GridItem(.adaptive(minimum: 250))]
     }
 
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            navButtons
-            eventsCount
-            relationshipCount
+        NavigationStack {
+            ScrollView(showsIndicators: false) {
+                navButtons
+                eventsCount
+                relationshipCount
+            }
+            .padding()
+            .padding(.horizontal, 10)
+            .toolbar(.hidden)
+            .fullScreenCover(isPresented: $showingEventSheet) {
+                AddEventView()
+            }
         }
-        .padding()
-        .padding(.horizontal, 10)
     }
 
     var navButtons: some View {
@@ -41,8 +38,12 @@ struct ContentView: View {
             Button(action: someStuff) { Image(systemName: "square.and.pencil") }
                 .buttonStyle(PrimaryButtonStyle())
 
-            Button(action: someStuff) { Image(systemName: "plus") }
-                .buttonStyle(PrimaryButtonStyle())
+            Button {
+                showingEventSheet.toggle()
+            } label: {
+                Image(systemName: "plus")
+            }
+            .buttonStyle(PrimaryButtonStyle())
 
             Spacer()
         }
@@ -117,6 +118,8 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        NavigationStack {
+            ContentView()
+        }
     }
 }

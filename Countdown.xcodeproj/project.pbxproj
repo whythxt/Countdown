@@ -11,6 +11,11 @@
 		AB270FE7295BB146008BCAF3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB270FE6295BB146008BCAF3 /* ContentView.swift */; };
 		AB270FE9295BB147008BCAF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB270FE8295BB147008BCAF3 /* Assets.xcassets */; };
 		AB270FEC295BB147008BCAF3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB270FEB295BB147008BCAF3 /* Preview Assets.xcassets */; };
+		ABBD80A2295DF911007C9AD9 /* View-DismissKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBD80A1295DF911007C9AD9 /* View-DismissKey.swift */; };
+		ABBD80A4295DFE38007C9AD9 /* Text-HeaderStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBD80A3295DFE38007C9AD9 /* Text-HeaderStyle.swift */; };
+		ABBD80A7295DFE78007C9AD9 /* PrimaryButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBD80A6295DFE78007C9AD9 /* PrimaryButtonStyle.swift */; };
+		ABBD80AA295DFEDE007C9AD9 /* AddEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBD80A9295DFEDE007C9AD9 /* AddEventView.swift */; };
+		ABBD80AE295E0313007C9AD9 /* Toggle-TogStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBD80AD295E0313007C9AD9 /* Toggle-TogStyle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +24,11 @@
 		AB270FE6295BB146008BCAF3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AB270FE8295BB147008BCAF3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AB270FEB295BB147008BCAF3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		ABBD80A1295DF911007C9AD9 /* View-DismissKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View-DismissKey.swift"; sourceTree = "<group>"; };
+		ABBD80A3295DFE38007C9AD9 /* Text-HeaderStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text-HeaderStyle.swift"; sourceTree = "<group>"; };
+		ABBD80A6295DFE78007C9AD9 /* PrimaryButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButtonStyle.swift; sourceTree = "<group>"; };
+		ABBD80A9295DFEDE007C9AD9 /* AddEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventView.swift; sourceTree = "<group>"; };
+		ABBD80AD295E0313007C9AD9 /* Toggle-TogStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Toggle-TogStyle.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +62,9 @@
 			isa = PBXGroup;
 			children = (
 				AB270FE4295BB146008BCAF3 /* CountdownApp.swift */,
-				AB270FE6295BB146008BCAF3 /* ContentView.swift */,
+				ABBD80A8295DFE8E007C9AD9 /* Components */,
+				ABBD80A5295DFE44007C9AD9 /* Extensions */,
+				ABBD80B3295E0FA3007C9AD9 /* Views */,
 				AB270FE8295BB147008BCAF3 /* Assets.xcassets */,
 				AB270FEA295BB147008BCAF3 /* Preview Content */,
 			);
@@ -65,6 +77,33 @@
 				AB270FEB295BB147008BCAF3 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		ABBD80A5295DFE44007C9AD9 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				ABBD80A3295DFE38007C9AD9 /* Text-HeaderStyle.swift */,
+				ABBD80A1295DF911007C9AD9 /* View-DismissKey.swift */,
+				ABBD80AD295E0313007C9AD9 /* Toggle-TogStyle.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		ABBD80A8295DFE8E007C9AD9 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				ABBD80A6295DFE78007C9AD9 /* PrimaryButtonStyle.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		ABBD80B3295E0FA3007C9AD9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AB270FE6295BB146008BCAF3 /* ContentView.swift */,
+				ABBD80A9295DFEDE007C9AD9 /* AddEventView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +176,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABBD80A7295DFE78007C9AD9 /* PrimaryButtonStyle.swift in Sources */,
+				ABBD80AA295DFEDE007C9AD9 /* AddEventView.swift in Sources */,
 				AB270FE7295BB146008BCAF3 /* ContentView.swift in Sources */,
+				ABBD80A2295DF911007C9AD9 /* View-DismissKey.swift in Sources */,
+				ABBD80AE295E0313007C9AD9 /* Toggle-TogStyle.swift in Sources */,
 				AB270FE5295BB146008BCAF3 /* CountdownApp.swift in Sources */,
+				ABBD80A4295DFE38007C9AD9 /* Text-HeaderStyle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
