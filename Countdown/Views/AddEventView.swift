@@ -22,6 +22,12 @@ struct AddEventView: View {
     @State private var oneDayBefore = false
     @State private var oneWeekBefore = false
 
+    var op: CGFloat {
+        name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty  ||
+        emoji.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?
+        -1000 : 0
+    }
+
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack {
@@ -64,6 +70,7 @@ struct AddEventView: View {
                             .bold()
                     }
             }
+            .offset(y: op)
         }
     }
 
@@ -159,6 +166,18 @@ struct AddEventView: View {
     }
 
     func save() {
+        var _ = Event(
+            name: self.name,
+            emoji: self.emoji,
+            date: self.date,
+            time: self.time,
+            allDay: self.allDay,
+            repeatYearly: self.repeatYearly,
+            onFinish: self.onFinish,
+            oneDayBefore: self.oneDayBefore,
+            oneWeekBefore: self.oneWeekBefore
+        )
+
         dismiss()
     }
 }

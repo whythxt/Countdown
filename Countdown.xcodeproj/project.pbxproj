@@ -16,6 +16,11 @@
 		ABBD80A7295DFE78007C9AD9 /* PrimaryButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBD80A6295DFE78007C9AD9 /* PrimaryButtonStyle.swift */; };
 		ABBD80AA295DFEDE007C9AD9 /* AddEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBD80A9295DFEDE007C9AD9 /* AddEventView.swift */; };
 		ABBD80AE295E0313007C9AD9 /* Toggle-TogStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBD80AD295E0313007C9AD9 /* Toggle-TogStyle.swift */; };
+		ABBD80BB2960A8CE007C9AD9 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBD80BA2960A8CE007C9AD9 /* Event.swift */; };
+		ABBD80BE2960AA18007C9AD9 /* EventCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBD80BD2960AA18007C9AD9 /* EventCard.swift */; };
+		ABBD80C02961A620007C9AD9 /* AddRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBD80BF2961A620007C9AD9 /* AddRelationView.swift */; };
+		ABBD80C22961AA44007C9AD9 /* Relation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBD80C12961AA44007C9AD9 /* Relation.swift */; };
+		ABBD80C42961AB75007C9AD9 /* RelationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBD80C32961AB75007C9AD9 /* RelationCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +34,11 @@
 		ABBD80A6295DFE78007C9AD9 /* PrimaryButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButtonStyle.swift; sourceTree = "<group>"; };
 		ABBD80A9295DFEDE007C9AD9 /* AddEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventView.swift; sourceTree = "<group>"; };
 		ABBD80AD295E0313007C9AD9 /* Toggle-TogStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Toggle-TogStyle.swift"; sourceTree = "<group>"; };
+		ABBD80BA2960A8CE007C9AD9 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		ABBD80BD2960AA18007C9AD9 /* EventCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCard.swift; sourceTree = "<group>"; };
+		ABBD80BF2961A620007C9AD9 /* AddRelationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRelationView.swift; sourceTree = "<group>"; };
+		ABBD80C12961AA44007C9AD9 /* Relation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Relation.swift; sourceTree = "<group>"; };
+		ABBD80C32961AB75007C9AD9 /* RelationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +74,7 @@
 				AB270FE4295BB146008BCAF3 /* CountdownApp.swift */,
 				ABBD80A8295DFE8E007C9AD9 /* Components */,
 				ABBD80A5295DFE44007C9AD9 /* Extensions */,
+				ABBD80BC2960A9FD007C9AD9 /* Models */,
 				ABBD80B3295E0FA3007C9AD9 /* Views */,
 				AB270FE8295BB147008BCAF3 /* Assets.xcassets */,
 				AB270FEA295BB147008BCAF3 /* Preview Content */,
@@ -93,6 +104,8 @@
 			isa = PBXGroup;
 			children = (
 				ABBD80A6295DFE78007C9AD9 /* PrimaryButtonStyle.swift */,
+				ABBD80BD2960AA18007C9AD9 /* EventCard.swift */,
+				ABBD80C32961AB75007C9AD9 /* RelationCard.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -102,8 +115,18 @@
 			children = (
 				AB270FE6295BB146008BCAF3 /* ContentView.swift */,
 				ABBD80A9295DFEDE007C9AD9 /* AddEventView.swift */,
+				ABBD80BF2961A620007C9AD9 /* AddRelationView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		ABBD80BC2960A9FD007C9AD9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				ABBD80BA2960A8CE007C9AD9 /* Event.swift */,
+				ABBD80C12961AA44007C9AD9 /* Relation.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -176,13 +199,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABBD80BB2960A8CE007C9AD9 /* Event.swift in Sources */,
+				ABBD80C42961AB75007C9AD9 /* RelationCard.swift in Sources */,
 				ABBD80A7295DFE78007C9AD9 /* PrimaryButtonStyle.swift in Sources */,
 				ABBD80AA295DFEDE007C9AD9 /* AddEventView.swift in Sources */,
 				AB270FE7295BB146008BCAF3 /* ContentView.swift in Sources */,
+				ABBD80C02961A620007C9AD9 /* AddRelationView.swift in Sources */,
 				ABBD80A2295DF911007C9AD9 /* View-DismissKey.swift in Sources */,
 				ABBD80AE295E0313007C9AD9 /* Toggle-TogStyle.swift in Sources */,
 				AB270FE5295BB146008BCAF3 /* CountdownApp.swift in Sources */,
+				ABBD80BE2960AA18007C9AD9 /* EventCard.swift in Sources */,
 				ABBD80A4295DFE38007C9AD9 /* Text-HeaderStyle.swift in Sources */,
+				ABBD80C22961AA44007C9AD9 /* Relation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
