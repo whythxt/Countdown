@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB0F4F65296890C50009CDF5 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0F4F64296890C50009CDF5 /* ViewModel.swift */; };
 		AB270FE5295BB146008BCAF3 /* CountdownApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB270FE4295BB146008BCAF3 /* CountdownApp.swift */; };
 		AB270FE7295BB146008BCAF3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB270FE6295BB146008BCAF3 /* ContentView.swift */; };
 		AB270FE9295BB147008BCAF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB270FE8295BB147008BCAF3 /* Assets.xcassets */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AB0F4F64296890C50009CDF5 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		AB270FE1295BB146008BCAF3 /* Countdown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Countdown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB270FE4295BB146008BCAF3 /* CountdownApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownApp.swift; sourceTree = "<group>"; };
 		AB270FE6295BB146008BCAF3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -52,6 +54,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AB0F4F66296890CA0009CDF5 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				AB0F4F64296890C50009CDF5 /* ViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		AB270FD8295BB146008BCAF3 = {
 			isa = PBXGroup;
 			children = (
@@ -76,6 +86,7 @@
 				ABBD80A5295DFE44007C9AD9 /* Extensions */,
 				ABBD80BC2960A9FD007C9AD9 /* Models */,
 				ABBD80B3295E0FA3007C9AD9 /* Views */,
+				AB0F4F66296890CA0009CDF5 /* ViewModels */,
 				AB270FE8295BB147008BCAF3 /* Assets.xcassets */,
 				AB270FEA295BB147008BCAF3 /* Preview Content */,
 			);
@@ -205,6 +216,7 @@
 				ABBD80AA295DFEDE007C9AD9 /* AddEventView.swift in Sources */,
 				AB270FE7295BB146008BCAF3 /* ContentView.swift in Sources */,
 				ABBD80C02961A620007C9AD9 /* AddRelationView.swift in Sources */,
+				AB0F4F65296890C50009CDF5 /* ViewModel.swift in Sources */,
 				ABBD80A2295DF911007C9AD9 /* View-DismissKey.swift in Sources */,
 				ABBD80AE295E0313007C9AD9 /* Toggle-TogStyle.swift in Sources */,
 				AB270FE5295BB146008BCAF3 /* CountdownApp.swift in Sources */,

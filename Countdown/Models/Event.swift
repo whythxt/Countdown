@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Event {
+struct Event: Identifiable {
+    var id = UUID()
     var name: String
     var emoji: String
     var date: Date

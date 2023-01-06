@@ -24,7 +24,7 @@ struct EventCard: View {
             Text("\(event.date.formatted(date: .abbreviated, time: .omitted))")
                 .fontWeight(.semibold)
 
-            Text("\(formatDate()) hours left")
+            Text(formatDate())
                 .fontWeight(.semibold)
                 .padding()
                 .background {
@@ -41,14 +41,17 @@ struct EventCard: View {
         }
     }
 
-    func formatDate() -> Int {
-        let diff = Calendar.current.dateComponents([.hour], from: Date.now, to: event.date)
+    func formatDate() -> String {
+        let dayComp = Calendar.current.dateComponents([.day], from: Date.now, to: event.date)
+        let hourComp = Calendar.current.dateComponents([.hour], from: Date.now, to: event.date)
 
-        if let hours = diff.hour {
-            return hours
+        guard let days = dayComp.day, let hours = hourComp.hour else { return "" }
+
+        if days < 2 {
+            return "\(hours) hours left"
+        } else {
+            return "\(days) days left"
         }
-
-        return 0
     }
 }
 

@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var vm = ViewModel()
+
     @State private var showingEventSheet = false
+    @State private var showingRelationSheet = false
 
     var eventsRows: [GridItem] {
         [GridItem(.adaptive(minimum: 250))]
@@ -27,12 +30,15 @@ struct ContentView: View {
             .fullScreenCover(isPresented: $showingEventSheet) {
                 AddEventView()
             }
+            .fullScreenCover(isPresented: $showingRelationSheet) {
+                AddRelationView()
+            }
         }
     }
 
     var navButtons: some View {
         HStack(spacing: 20) {
-            Button(action: someStuff) { Image(systemName: "arrow.up.arrow.down.square") }
+            Button(action: toggleEvent) { Image(systemName: "arrow.up.arrow.down.square") }
                 .buttonStyle(PrimaryButtonStyle())
 
             Button(action: someStuff) { Image(systemName: "square.and.pencil") }
@@ -58,26 +64,31 @@ struct ContentView: View {
             Text("Countdowns")
                 .font(.title)
 
-            ScrollView(.horizontal, showsIndicators: false) {
-                LazyHGrid(rows: eventsRows, spacing: 20) {
-                    ForEach(1..<6) { _ in
-                        Button(action: someStuff) {
-                            Image(systemName: "plus")
-                                .font(.title2)
-                                .padding(15)
-                                .background(.regularMaterial)
-                                .cornerRadius(50)
-                                .frame(width: 150, height: 250)
-                                .background {
-                                    Rectangle()
-                                        .foregroundColor(.gray.opacity(0.05))
-                                        .cornerRadius(10)
-                                }
+            if vm.events.isEmpty {
+                Button(action: toggleEvent) {
+                    Image(systemName: "plus")
+                        .font(.title2)
+                        .padding(15)
+                        .background(.regularMaterial)
+                        .cornerRadius(50)
+                        .frame(width: 150, height: 250)
+                        .background {
+                            Rectangle()
+                                .foregroundColor(.gray.opacity(0.05))
+                                .cornerRadius(10)
+                        }
+                }
+                .padding(.top, 20)
+            } else {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    LazyHGrid(rows: eventsRows, spacing: 20) {
+                        ForEach(vm.events) { event in
+                            EventCard(event: event)
                         }
                     }
                 }
+                .padding(.top, 20)
             }
-            .padding(.top, 20)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.top, 30)
@@ -92,7 +103,7 @@ struct ContentView: View {
             Text("Counter")
                 .font(.title)
 
-            Button(action: someStuff) {
+            Button(action: toggleRelation) {
                 Image(systemName: "plus")
                     .font(.title2)
                     .padding(15)
@@ -109,6 +120,14 @@ struct ContentView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.top, 30)
+    }
+
+    func toggleEvent() {
+        showingEventSheet.toggle()
+    }
+
+    func toggleRelation() {
+        showingRelationSheet.toggle()
     }
 
     func someStuff() {

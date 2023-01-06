@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+enum DateComp {
+    case months, weeks, days, both
+}
+
 struct RelationCard: View {
     var relation: Relation
 
@@ -27,8 +31,8 @@ struct RelationCard: View {
                         .font(.system(size: 14))
                         .foregroundColor(.secondary)
 
-                    Text("\(formatDate())")
-                        .opacity(0.7)
+                    Text("\(formatDate(.both))")
+                        .opacity(0.6)
                         .fontWeight(.semibold)
                         .padding()
                         .background {
@@ -46,9 +50,9 @@ struct RelationCard: View {
                 .padding(.vertical, 5)
 
             HStack(spacing: 45) {
-                Text("10 Months")
-                Text("400 Weeks")
-                Text("2925 Days")
+                Text(formatDate(.months))
+                Text(formatDate(.weeks))
+                Text(formatDate(.days))
             }
             .bold()
         }
@@ -60,16 +64,45 @@ struct RelationCard: View {
         }
     }
 
-    func formatDate() -> String {
-        let diff = Calendar.current.dateComponents([.year, .month, .day], from: relation.togetherSince, to: Date.now)
+    func formatDate(_ str: DateComp) -> String {
+        let togetherFor = Calendar.current.dateComponents(
+            [.year, .day],
+            from: relation.togetherSince,
+            to: Date.now)
 
-        if let years = diff.year {
-            if let days = diff.day {
-                return "\(years) years and \(days) days"
+        let monthsComp = Calendar.current.dateComponents(
+            [.month],
+            from: relation.togetherSince,
+            to: Date.now)
+
+        let weeksComp = Calendar.current.dateComponents(
+            [.weekOfMonth],
+            from: relation.togetherSince,
+            to: Date.now)
+
+        let daysComp = Calendar.current.dateComponents(
+            [.day],
+            from: relation.togetherSince,
+            to: Date.now)
+
+
+        guard let years = togetherFor.year,
+              let day = togetherFor.day,
+              let months = monthsComp.month,
+              let weeks = weeksComp.weekOfMonth,
+              let days = daysComp.day
+        else { return "0" }
+
+        switch str {
+            case .months: return "\(months) months"
+            case .weeks: return "\(weeks) weeks"
+            case .days: return "\(days) days"
+            case .both: if day < 31 {
+                return "\(years) years and \(day) days"
+            } else {
+                return "\(years) years and \(months) months"
             }
         }
-
-        return "0"
     }
 }
 
