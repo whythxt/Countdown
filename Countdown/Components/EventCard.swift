@@ -37,7 +37,7 @@ struct EventCard: View {
         .background {
             RoundedRectangle(cornerRadius: 10)
                 .foregroundColor(.white)
-                .shadow(radius: 3)
+                .shadow(radius: 1)
         }
     }
 

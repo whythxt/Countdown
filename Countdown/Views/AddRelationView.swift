@@ -10,6 +10,8 @@ import SwiftUI
 struct AddRelationView: View {
     @Environment(\.dismiss) var dismiss
 
+    @ObservedObject var vm: ViewModel
+
     @State private var name = ""
     @State private var loveName = ""
 
@@ -71,6 +73,7 @@ struct AddRelationView: View {
                 .padding(.top)
 
             TextField("Write your name", text: $name)
+                .autocorrectionDisabled()
                 .padding()
                 .background {
                     Rectangle()
@@ -90,6 +93,7 @@ struct AddRelationView: View {
                 .padding(.top)
 
             TextField("Write your love name", text: $loveName)
+                .autocorrectionDisabled()
                 .padding()
                 .background {
                     Rectangle()
@@ -107,7 +111,7 @@ struct AddRelationView: View {
             Text("Since when are together?")
                 .headerStyle()
 
-            DatePicker("", selection: $togetherSince, displayedComponents: .date)
+            DatePicker("", selection: $togetherSince, in: ...Date(), displayedComponents: .date)
                 .datePickerStyle(.graphical)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(.white)
@@ -116,11 +120,13 @@ struct AddRelationView: View {
     }
 
     func save() {
-        var _ = Relation(
+        let relation = Relation(
             name: self.name,
             loveName: self.loveName,
             togetherSince: self.togetherSince
         )
+
+        vm.relation = relation
 
         dismiss()
     }
@@ -128,6 +134,6 @@ struct AddRelationView: View {
 
 struct AddRelationView_Previews: PreviewProvider {
     static var previews: some View {
-        AddRelationView()
+        AddRelationView(vm: ViewModel())
     }
 }

@@ -25,13 +25,12 @@ struct ContentView: View {
                 relationshipCount
             }
             .padding()
-            .padding(.horizontal, 10)
             .toolbar(.hidden)
             .fullScreenCover(isPresented: $showingEventSheet) {
-                AddEventView()
+                AddEventView(vm: vm)
             }
             .fullScreenCover(isPresented: $showingRelationSheet) {
-                AddRelationView()
+                AddRelationView(vm: vm)
             }
         }
     }
@@ -78,20 +77,30 @@ struct ContentView: View {
                                 .cornerRadius(10)
                         }
                 }
-                .padding(.top, 20)
+                .padding(.top, 10)
             } else {
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHGrid(rows: eventsRows, spacing: 20) {
                         ForEach(vm.events) { event in
                             EventCard(event: event)
+                                .padding(1)
+                                .contextMenu {
+                                    Button("Edit") {
+                                        vm.editEvent()
+                                    }
+
+                                    Button("Delete", role: .destructive) {
+                                        vm.deleteEvent()
+                                    }
+                                }
                         }
                     }
                 }
-                .padding(.top, 20)
+                .padding(.top, 10)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.top, 30)
+        .padding(.top, 20)
     }
 
     var relationshipCount: some View {
@@ -103,23 +112,39 @@ struct ContentView: View {
             Text("Counter")
                 .font(.title)
 
-            Button(action: toggleRelation) {
-                Image(systemName: "plus")
-                    .font(.title2)
-                    .padding(15)
-                    .background(.regularMaterial)
-                    .cornerRadius(50)
-                    .frame(maxWidth: .infinity, minHeight: 200)
-                    .background {
-                        Rectangle()
-                            .foregroundColor(.gray.opacity(0.05))
-                            .cornerRadius(10)
+            if vm.relation == nil {
+                Button(action: toggleRelation) {
+                    Image(systemName: "plus")
+                        .font(.title2)
+                        .padding(15)
+                        .background(.regularMaterial)
+                        .cornerRadius(50)
+                        .frame(maxWidth: .infinity, minHeight: 200)
+                        .background {
+                            Rectangle()
+                                .foregroundColor(.gray.opacity(0.05))
+                                .cornerRadius(10)
+                        }
+                }
+                .padding(.top, 10)
+            } else {
+                RelationCard(relation: vm.relation!)
+                    .padding(1)
+                    .padding(.top, 9)
+                    .contextMenu {
+                        Button("Edit") {
+                            vm.editRelation()
+                        }
+
+                        Button("Delete", role: .destructive) {
+                            vm.deleteRelation()
+                        }
                     }
+
             }
-            .padding(.top, 20)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.top, 30)
+        .padding(.top, 20)
     }
 
     func toggleEvent() {

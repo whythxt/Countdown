@@ -20,7 +20,8 @@ struct RelationCard: View {
                 Image("hands")
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 115, height: 120)
+                    .frame(width: 110, height: 110)
+                    .offset(x: -15)
 
                 VStack(alignment: .leading, spacing: 8) {
                     Text("\(relation.name) & \(relation.loveName)")
@@ -28,7 +29,7 @@ struct RelationCard: View {
                         .bold()
 
                     Text("YOU HAVE BEEN TOGETHER FOR")
-                        .font(.system(size: 14))
+                        .font(.footnote)
                         .foregroundColor(.secondary)
 
                     Text("\(formatDate(.both))")
@@ -42,6 +43,7 @@ struct RelationCard: View {
                         }
                         .offset(x: -5)
                 }
+                .offset(x: -15)
             }
 
             Text("IN OTHER WORDS")
@@ -49,18 +51,21 @@ struct RelationCard: View {
                 .font(.subheadline)
                 .padding(.vertical, 5)
 
-            HStack(spacing: 45) {
+            HStack {
                 Text(formatDate(.months))
+                Spacer()
                 Text(formatDate(.weeks))
+                Spacer()
                 Text(formatDate(.days))
             }
             .bold()
         }
         .padding()
+        .frame(maxWidth: .infinity)
         .background {
             RoundedRectangle(cornerRadius: 10)
                 .foregroundColor(.white)
-                .shadow(radius: 3)
+                .shadow(radius: 1)
         }
     }
 
@@ -97,10 +102,10 @@ struct RelationCard: View {
             case .months: return "\(months) months"
             case .weeks: return "\(weeks) weeks"
             case .days: return "\(days) days"
-            case .both: if day < 31 {
-                return "\(years) years and \(day) days"
+            case .both: if years == 0 {
+                return "\(day) days"
             } else {
-                return "\(years) years and \(months) months"
+                return "\(years) years and \(day) days"
             }
         }
     }

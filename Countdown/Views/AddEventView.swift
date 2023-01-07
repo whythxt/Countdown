@@ -10,6 +10,8 @@ import SwiftUI
 struct AddEventView: View {
     @Environment(\.dismiss) var dismiss
 
+    @ObservedObject var vm: ViewModel
+
     @State private var name = ""
     @State private var emoji = ""
 
@@ -81,6 +83,7 @@ struct AddEventView: View {
                 .padding(.top)
 
             TextField("Name your countdown", text: $name)
+                .autocorrectionDisabled()
                 .padding()
                 .background {
                     Rectangle()
@@ -99,6 +102,7 @@ struct AddEventView: View {
                 .headerStyle()
 
             TextField("", text: $emoji)
+                .autocorrectionDisabled()
                 .frame(width: 50, height: 50)
                 .background(RoundedRectangle(cornerRadius: 64).stroke())
                 .overlay {
@@ -115,7 +119,7 @@ struct AddEventView: View {
             Text("Countdown date")
                 .headerStyle()
 
-            DatePicker("", selection: $date, displayedComponents: .date)
+            DatePicker("", selection: $date, in: Date()..., displayedComponents: .date)
                 .datePickerStyle(.graphical)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(.white)
@@ -166,7 +170,7 @@ struct AddEventView: View {
     }
 
     func save() {
-        var _ = Event(
+        let event = Event(
             name: self.name,
             emoji: self.emoji,
             date: self.date,
@@ -178,12 +182,14 @@ struct AddEventView: View {
             oneWeekBefore: self.oneWeekBefore
         )
 
+        vm.events.append(event)
+
         dismiss()
     }
 }
 
 struct AddEventView_Previews: PreviewProvider {
     static var previews: some View {
-        AddEventView()
+        AddEventView(vm: ViewModel())
     }
 }
