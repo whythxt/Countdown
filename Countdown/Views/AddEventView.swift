@@ -10,25 +10,7 @@ import SwiftUI
 struct AddEventView: View {
     @Environment(\.dismiss) var dismiss
 
-    @ObservedObject var vm: ViewModel
-
-    @State private var name = ""
-    @State private var emoji = ""
-
-    @State private var date = Date.now
-    @State private var time = Date.now
-
-    @State private var allDay = false
-    @State private var repeatYearly = false
-    @State private var onFinish = false
-    @State private var oneDayBefore = false
-    @State private var oneWeekBefore = false
-
-    var op: CGFloat {
-        name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty  ||
-        emoji.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?
-        -1000 : 0
-    }
+    @ObservedObject var vm: AddViewModel
 
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -72,7 +54,7 @@ struct AddEventView: View {
                             .bold()
                     }
             }
-            .offset(y: op)
+            .offset(y: vm.op)
         }
     }
 
@@ -82,7 +64,7 @@ struct AddEventView: View {
                 .headerStyle()
                 .padding(.top)
 
-            TextField("Name your countdown", text: $name)
+            TextField("Name your countdown", text: $vm.event.name)
                 .autocorrectionDisabled()
                 .padding()
                 .background {
@@ -101,7 +83,7 @@ struct AddEventView: View {
             Text("Pick an emoji")
                 .headerStyle()
 
-            TextField("", text: $emoji)
+            TextField("", text: $vm.event.emoji)
                 .autocorrectionDisabled()
                 .frame(width: 50, height: 50)
                 .background(RoundedRectangle(cornerRadius: 64).stroke())
@@ -119,7 +101,7 @@ struct AddEventView: View {
             Text("Countdown date")
                 .headerStyle()
 
-            DatePicker("", selection: $date, in: Date()..., displayedComponents: .date)
+            DatePicker("", selection: $vm.event.doe, in: Date()..., displayedComponents: .date)
                 .datePickerStyle(.graphical)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(.white)
@@ -132,14 +114,16 @@ struct AddEventView: View {
             Text("Countdown time")
                 .headerStyle()
 
-            Toggle("All day", isOn: $allDay)
+            Toggle("All day", isOn: $vm.event.allDay)
                 .togStyle()
 
-            DatePicker("", selection: $date, displayedComponents: .hourAndMinute)
-                .datePickerStyle(.wheel)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(.white)
-                .cornerRadius(10)
+            if !vm.event.allDay {
+                DatePicker("", selection: $vm.event.doe, displayedComponents: .hourAndMinute)
+                    .datePickerStyle(.wheel)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(.white)
+                    .cornerRadius(10)
+            }
         }
     }
 
@@ -148,7 +132,7 @@ struct AddEventView: View {
             Text("Repeat")
                 .headerStyle()
 
-            Toggle("Repeat yearly", isOn: $repeatYearly)
+            Toggle("Repeat yearly", isOn: $vm.event.repeatYearly)
                 .togStyle()
         }
     }
@@ -158,38 +142,28 @@ struct AddEventView: View {
             Text("Remind me")
                 .headerStyle()
 
-            Toggle("When the countdown finishes", isOn: $onFinish)
+            Toggle("When the countdown finishes", isOn: $vm.event.onFinish)
                 .togStyle()
 
-            Toggle("1 day before", isOn: $oneDayBefore)
+            Toggle("1 day before", isOn: $vm.event.oneDayBefore)
                 .togStyle()
 
-            Toggle("1 week before", isOn: $oneWeekBefore)
+            Toggle("1 week before", isOn: $vm.event.oneWeekBefore)
                 .togStyle()
         }
     }
 
     func save() {
-        let event = Event(
-            name: self.name,
-            emoji: self.emoji,
-            date: self.date,
-            time: self.time,
-            allDay: self.allDay,
-            repeatYearly: self.repeatYearly,
-            onFinish: self.onFinish,
-            oneDayBefore: self.oneDayBefore,
-            oneWeekBefore: self.oneWeekBefore
-        )
-
-        vm.events.append(event)
-
+        try? vm.save()
         dismiss()
     }
 }
 
 struct AddEventView_Previews: PreviewProvider {
     static var previews: some View {
-        AddEventView(vm: ViewModel())
+        let preview = EventsProvider.shared
+
+        AddEventView(vm: .init(provider: preview))
+            .environment(\.managedObjectContext, preview.viewContext)
     }
 }

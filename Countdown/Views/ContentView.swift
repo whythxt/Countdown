@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var vm = ViewModel()
+    var provider = EventsProvider.shared
 
-    @State private var showingEventSheet = false
-    @State private var showingRelationSheet = false
+    @FetchRequest(fetchRequest: Event.all()) private var events
+
+    @State private var eventToEdit: Event?
+    @State private var sort = Sort.asc
 
     var eventsRows: [GridItem] {
         [GridItem(.adaptive(minimum: 250))]
@@ -26,31 +28,33 @@ struct ContentView: View {
             }
             .padding()
             .toolbar(.hidden)
-            .fullScreenCover(isPresented: $showingEventSheet) {
-                AddEventView(vm: vm)
+            .sheet(item: $eventToEdit) {
+                eventToEdit = nil
+            } content: { event in
+                AddEventView(vm: .init(provider: provider, event: event))
             }
-            .fullScreenCover(isPresented: $showingRelationSheet) {
-                AddRelationView(vm: vm)
+            .onChange(of: sort) { newSort in
+                events.nsSortDescriptors = Event.sort(order: newSort)
             }
         }
     }
 
     var navButtons: some View {
         HStack(spacing: 20) {
-            Button(action: toggleEvent) { Image(systemName: "arrow.up.arrow.down.square") }
-                .buttonStyle(PrimaryButtonStyle())
+            Button(action: toggleSort) {
+                Image(systemName: sort == .asc ? "arrow.up" : "arrow.down")
 
-            Button(action: someStuff) { Image(systemName: "square.and.pencil") }
-                .buttonStyle(PrimaryButtonStyle())
-
-            Button {
-                showingEventSheet.toggle()
-            } label: {
-                Image(systemName: "plus")
             }
             .buttonStyle(PrimaryButtonStyle())
 
             Spacer()
+
+            Button {
+                eventToEdit = .empty(context: provider.newContext)
+            } label: {
+                Image(systemName: "plus")
+            }
+            .buttonStyle(PrimaryButtonStyle())
         }
     }
 
@@ -63,8 +67,10 @@ struct ContentView: View {
             Text("Countdowns")
                 .font(.title)
 
-            if vm.events.isEmpty {
-                Button(action: toggleEvent) {
+            if events.isEmpty {
+                Button {
+                    eventToEdit = .empty(context: provider.newContext)
+                } label: {
                     Image(systemName: "plus")
                         .font(.title2)
                         .padding(15)
@@ -81,16 +87,16 @@ struct ContentView: View {
             } else {
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHGrid(rows: eventsRows, spacing: 20) {
-                        ForEach(vm.events) { event in
-                            EventCard(event: event)
+                        ForEach(events) { event in
+                            EventCard(provider: provider, event: event)
                                 .padding(1)
                                 .contextMenu {
                                     Button("Edit") {
-                                        vm.editEvent()
+                                        eventToEdit = event
                                     }
 
                                     Button("Delete", role: .destructive) {
-                                        vm.deleteEvent()
+                                        try? provider.delete(event, in: provider.viewContext)
                                     }
                                 }
                         }
@@ -112,47 +118,62 @@ struct ContentView: View {
             Text("Counter")
                 .font(.title)
 
-            if vm.relation == nil {
-                Button(action: toggleRelation) {
-                    Image(systemName: "plus")
-                        .font(.title2)
-                        .padding(15)
-                        .background(.regularMaterial)
-                        .cornerRadius(50)
-                        .frame(maxWidth: .infinity, minHeight: 200)
-                        .background {
-                            Rectangle()
-                                .foregroundColor(.gray.opacity(0.05))
-                                .cornerRadius(10)
-                        }
-                }
-                .padding(.top, 10)
-            } else {
-                RelationCard(relation: vm.relation!)
-                    .padding(1)
-                    .padding(.top, 9)
-                    .contextMenu {
-                        Button("Edit") {
-                            vm.editRelation()
-                        }
-
-                        Button("Delete", role: .destructive) {
-                            vm.deleteRelation()
-                        }
+            Button(action: someStuff) {
+                Image(systemName: "plus")
+                    .font(.title2)
+                    .padding(15)
+                    .background(.regularMaterial)
+                    .cornerRadius(50)
+                    .frame(maxWidth: .infinity, minHeight: 200)
+                    .background {
+                        Rectangle()
+                            .foregroundColor(.gray.opacity(0.05))
+                            .cornerRadius(10)
                     }
-
             }
+            .padding(.top, 10)
+
+            //            if vm.relation == nil {
+            //                Button(action: toggleRelation) {
+            //                    Image(systemName: "plus")
+            //                        .font(.title2)
+            //                        .padding(15)
+            //                        .background(.regularMaterial)
+            //                        .cornerRadius(50)
+            //                        .frame(maxWidth: .infinity, minHeight: 200)
+            //                        .background {
+            //                            Rectangle()
+            //                                .foregroundColor(.gray.opacity(0.05))
+            //                                .cornerRadius(10)
+            //                        }
+            //                }
+            //                .padding(.top, 10)
+            //            } else {
+            //                RelationCard(relation: vm.relation!)
+            //                    .padding(1)
+            //                    .padding(.top, 9)
+            //                    .contextMenu {
+            //                        Button("Edit") {
+            //                            vm.editRelation()
+            //                        }
+            //
+            //                        Button("Delete", role: .destructive) {
+            //                            vm.deleteRelation()
+            //                        }
+            //                    }
+            //
+            //            }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.top, 20)
     }
 
-    func toggleEvent() {
-        showingEventSheet.toggle()
-    }
-
-    func toggleRelation() {
-        showingRelationSheet.toggle()
+    func toggleSort() {
+        if sort == .asc {
+            sort = .dsc
+        } else {
+            sort = .asc
+        }
     }
 
     func someStuff() {
@@ -162,8 +183,18 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationStack {
-            ContentView()
-        }
+        let preview = EventsProvider.shared
+        let emptyPreview = EventsProvider.shared
+
+        ContentView(provider: preview)
+            .environment(\.managedObjectContext, preview.viewContext)
+            .previewDisplayName("Events With Data")
+            .onAppear {
+                Event.makePreview(count: 10, in: preview.viewContext)
+            }
+
+        ContentView(provider: preview)
+            .environment(\.managedObjectContext, emptyPreview.viewContext)
+            .previewDisplayName("Events With No Data")
     }
 }

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22A400" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Event" representedClassName=".Event" syncable="YES">
+        <attribute name="allDay" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="doe" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="emoji" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="oneDayBefore" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="oneWeekBefore" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="onFinish" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="repeatYearly" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+    </entity>
+</model>
