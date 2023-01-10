@@ -10,10 +10,14 @@ import SwiftUI
 struct ContentView: View {
     var provider = EventsProvider.shared
 
+    @StateObject var rp = RelationProvider()
+
     @FetchRequest(fetchRequest: Event.all()) private var events
 
     @State private var eventToEdit: Event?
     @State private var sort = Sort.asc
+
+    @State private var showingRelationSheet = false
 
     var eventsRows: [GridItem] {
         [GridItem(.adaptive(minimum: 250))]
@@ -32,6 +36,9 @@ struct ContentView: View {
                 eventToEdit = nil
             } content: { event in
                 AddEventView(vm: .init(provider: provider, event: event))
+            }
+            .sheet(isPresented: $showingRelationSheet) {
+                AddRelationView(rp: rp)
             }
             .onChange(of: sort) { newSort in
                 events.nsSortDescriptors = Event.sort(order: newSort)
@@ -118,54 +125,42 @@ struct ContentView: View {
             Text("Counter")
                 .font(.title)
 
-            Button(action: someStuff) {
-                Image(systemName: "plus")
-                    .font(.title2)
-                    .padding(15)
-                    .background(.regularMaterial)
-                    .cornerRadius(50)
-                    .frame(maxWidth: .infinity, minHeight: 200)
-                    .background {
-                        Rectangle()
-                            .foregroundColor(.gray.opacity(0.05))
-                            .cornerRadius(10)
+            if rp.relation == nil {
+                Button(action: toggleRelation) {
+                    Image(systemName: "plus")
+                        .font(.title2)
+                        .padding(15)
+                        .background(.regularMaterial)
+                        .cornerRadius(50)
+                        .frame(maxWidth: .infinity, minHeight: 200)
+                        .background {
+                            Rectangle()
+                                .foregroundColor(.gray.opacity(0.05))
+                                .cornerRadius(10)
+                        }
+                }
+                .padding(.top, 10)
+            } else {
+                RelationCard(relation: rp.relation!)
+                    .padding(1)
+                    .padding(.top, 9)
+                    .contextMenu {
+                        Button("Edit") {
+
+                        }
+
+                        Button("Delete", role: .destructive) {
+                            rp.delete()
+                        }
                     }
             }
-            .padding(.top, 10)
-
-            //            if vm.relation == nil {
-            //                Button(action: toggleRelation) {
-            //                    Image(systemName: "plus")
-            //                        .font(.title2)
-            //                        .padding(15)
-            //                        .background(.regularMaterial)
-            //                        .cornerRadius(50)
-            //                        .frame(maxWidth: .infinity, minHeight: 200)
-            //                        .background {
-            //                            Rectangle()
-            //                                .foregroundColor(.gray.opacity(0.05))
-            //                                .cornerRadius(10)
-            //                        }
-            //                }
-            //                .padding(.top, 10)
-            //            } else {
-            //                RelationCard(relation: vm.relation!)
-            //                    .padding(1)
-            //                    .padding(.top, 9)
-            //                    .contextMenu {
-            //                        Button("Edit") {
-            //                            vm.editRelation()
-            //                        }
-            //
-            //                        Button("Delete", role: .destructive) {
-            //                            vm.deleteRelation()
-            //                        }
-            //                    }
-            //
-            //            }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.top, 20)
+    }
+
+    func toggleRelation() {
+        showingRelationSheet.toggle()
     }
 
     func toggleSort() {
@@ -174,10 +169,6 @@ struct ContentView: View {
         } else {
             sort = .asc
         }
-    }
-
-    func someStuff() {
-
     }
 }
 

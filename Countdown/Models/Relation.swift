@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Relation {
+struct Relation: Codable {
     var name: String
     var loveName: String
     var togetherSince: Date

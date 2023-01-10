@@ -12,6 +12,7 @@
 		AB0F4F6D296B20B50009CDF5 /* EventsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0F4F6C296B20B50009CDF5 /* EventsProvider.swift */; };
 		AB0F4F6F296B21360009CDF5 /* Thread-Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0F4F6E296B21360009CDF5 /* Thread-Tests.swift */; };
 		AB0F4F71296B22EF0009CDF5 /* AddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0F4F70296B22EF0009CDF5 /* AddViewModel.swift */; };
+		AB0F4F75296DC7930009CDF5 /* RelationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0F4F74296DC7930009CDF5 /* RelationProvider.swift */; };
 		AB270FE5295BB146008BCAF3 /* CountdownApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB270FE4295BB146008BCAF3 /* CountdownApp.swift */; };
 		AB270FE7295BB146008BCAF3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB270FE6295BB146008BCAF3 /* ContentView.swift */; };
 		AB270FE9295BB147008BCAF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB270FE8295BB147008BCAF3 /* Assets.xcassets */; };
@@ -34,6 +35,7 @@
 		AB0F4F6C296B20B50009CDF5 /* EventsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsProvider.swift; sourceTree = "<group>"; };
 		AB0F4F6E296B21360009CDF5 /* Thread-Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Thread-Tests.swift"; sourceTree = "<group>"; };
 		AB0F4F70296B22EF0009CDF5 /* AddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewModel.swift; sourceTree = "<group>"; };
+		AB0F4F74296DC7930009CDF5 /* RelationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationProvider.swift; sourceTree = "<group>"; };
 		AB270FE1295BB146008BCAF3 /* Countdown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Countdown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB270FE4295BB146008BCAF3 /* CountdownApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownApp.swift; sourceTree = "<group>"; };
 		AB270FE6295BB146008BCAF3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -70,6 +72,15 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		AB0F4F76296DC9310009CDF5 /* Providers */ = {
+			isa = PBXGroup;
+			children = (
+				AB0F4F6C296B20B50009CDF5 /* EventsProvider.swift */,
+				AB0F4F74296DC7930009CDF5 /* RelationProvider.swift */,
+			);
+			path = Providers;
+			sourceTree = "<group>";
+		};
 		AB270FD8295BB146008BCAF3 = {
 			isa = PBXGroup;
 			children = (
@@ -90,7 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				AB270FE4295BB146008BCAF3 /* CountdownApp.swift */,
-				AB0F4F6C296B20B50009CDF5 /* EventsProvider.swift */,
+				AB0F4F76296DC9310009CDF5 /* Providers */,
 				ABBD80A8295DFE8E007C9AD9 /* Components */,
 				ABBD80A5295DFE44007C9AD9 /* Extensions */,
 				ABBD80BC2960A9FD007C9AD9 /* Models */,
@@ -232,6 +243,7 @@
 				ABBD80A2295DF911007C9AD9 /* View-DismissKey.swift in Sources */,
 				AB0F4F6F296B21360009CDF5 /* Thread-Tests.swift in Sources */,
 				ABBD80AE295E0313007C9AD9 /* Toggle-TogStyle.swift in Sources */,
+				AB0F4F75296DC7930009CDF5 /* RelationProvider.swift in Sources */,
 				AB270FE5295BB146008BCAF3 /* CountdownApp.swift in Sources */,
 				ABBD80BE2960AA18007C9AD9 /* EventCard.swift in Sources */,
 				ABBD80A4295DFE38007C9AD9 /* Text-HeaderStyle.swift in Sources */,

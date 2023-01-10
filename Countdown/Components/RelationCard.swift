@@ -12,7 +12,7 @@ enum DateComp {
 }
 
 struct RelationCard: View {
-    var relation: Relation
+    let relation: Relation
 
     var body: some View {
         VStack(alignment: .leading) {
