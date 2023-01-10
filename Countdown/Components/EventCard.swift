@@ -6,11 +6,13 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 struct EventCard: View {
     @Environment(\.managedObjectContext) private var moc
 
     let provider: EventsProvider
+    let timer = Timer.publish(every: 60, tolerance: 0.5, on: .main, in: .common).autoconnect()
 
     @ObservedObject var event: Event
 
@@ -28,7 +30,7 @@ struct EventCard: View {
             Text("\(event.doe.formatted(date: .abbreviated, time: .omitted))")
                 .fontWeight(.semibold)
 
-            Text(formatDate())
+            Text(event.timeLeft)
                 .fontWeight(.semibold)
                 .padding()
                 .background {
@@ -36,6 +38,17 @@ struct EventCard: View {
                         .foregroundColor(.secondary.opacity(0.5))
                         .frame(height: 40)
                 }
+        }
+        .onAppear {
+            formatDate()
+            scheduleNotification()
+        }
+        .onReceive(timer) { _ in
+            if event.timeLeft == "0 minutes left" {
+                timer.upstream.connect().cancel()
+            } else {
+                formatDate()
+            }
         }
         .padding()
         .background {
@@ -45,7 +58,7 @@ struct EventCard: View {
         }
     }
 
-    func formatDate() -> String {
+    func formatDate() {
         let dayComp = Calendar.current.dateComponents([.day], from: Date.now, to: event.doe)
         let hourComp = Calendar.current.dateComponents([.hour], from: Date.now, to: event.doe)
         let minComp = Calendar.current.dateComponents([.minute], from: Date.now, to: event.doe)
@@ -53,17 +66,37 @@ struct EventCard: View {
         guard let days = dayComp.day,
               let hours = hourComp.hour,
               let minutes = minComp.minute
-        else { return "" }
+        else { return }
 
         if days < 2 {
             if hours <= 1 {
-                return "\(minutes) minutes left"
+                event.timeLeft = "\(minutes) minutes left"
             } else {
-                return "\(hours) hours left"
+                event.timeLeft = "\(hours) hours left"
             }
         } else {
-            return "\(days) days left"
+            event.timeLeft = "\(days) days left"
         }
+    }
+
+    func scheduleNotification() {
+        let center = UNUserNotificationCenter.current()
+        center.removeAllPendingNotificationRequests()
+
+        let content = UNMutableNotificationContent()
+        content.title = event.name
+        content.sound = UNNotificationSound.default
+
+        let comps = Calendar.current.dateComponents([.day, .hour, .minute], from: event.doe)
+
+        let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: false)
+        let request = UNNotificationRequest(
+            identifier: UUID().uuidString,
+            content: content,
+            trigger: trigger
+        )
+
+        center.add(request)
     }
 }
 

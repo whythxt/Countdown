@@ -43,6 +43,16 @@ struct ContentView: View {
             .onChange(of: sort) { newSort in
                 events.nsSortDescriptors = Event.sort(order: newSort)
             }
+            .onAppear {
+                UNUserNotificationCenter.current()
+                    .requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+                    if success {
+                        // All set
+                    } else if let error {
+                        print(error.localizedDescription)
+                    }
+                }
+            }
         }
     }
 

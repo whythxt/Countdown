@@ -15,6 +15,7 @@ enum Sort {
 final class Event: NSManagedObject, Identifiable {
     @NSManaged var name: String
     @NSManaged var emoji: String
+    @NSManaged var timeLeft: String
     @NSManaged var doe: Date
     @NSManaged var allDay: Bool
     @NSManaged var repeatYearly: Bool
@@ -65,6 +66,7 @@ final class Event: NSManagedObject, Identifiable {
             let event = Event(context: context)
             event.name = "item \(i)"
             event.emoji = "🎂\(i)"
+            event.timeLeft = "2 hours left"
             event.doe = Calendar.current.date(byAdding: .day, value: i, to: .now) ?? .now
             event.allDay = Bool.random()
             event.repeatYearly = Bool.random()
