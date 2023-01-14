@@ -7,7 +7,6 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="oneDayBefore" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="oneWeekBefore" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="onFinish" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="repeatYearly" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="timeLeft" optional="YES" attributeType="String"/>
     </entity>

@@ -113,7 +113,9 @@ struct ContentView: View {
                                     }
 
                                     Button("Delete", role: .destructive) {
-                                        try? provider.delete(event, in: provider.viewContext)
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){ 
+                                            try? provider.delete(event, in: provider.viewContext)
+                                        }
                                     }
                                 }
                         }
@@ -155,10 +157,6 @@ struct ContentView: View {
                     .padding(1)
                     .padding(.top, 9)
                     .contextMenu {
-                        Button("Edit") {
-
-                        }
-
                         Button("Delete", role: .destructive) {
                             rp.delete()
                         }

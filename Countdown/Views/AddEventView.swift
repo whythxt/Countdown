@@ -142,9 +142,6 @@ struct AddEventView: View {
             Text("Remind me")
                 .headerStyle()
 
-            Toggle("When the countdown finishes", isOn: $vm.event.onFinish)
-                .togStyle()
-
             Toggle("1 day before", isOn: $vm.event.oneDayBefore)
                 .togStyle()
 

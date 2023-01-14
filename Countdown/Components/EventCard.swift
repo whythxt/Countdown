@@ -43,6 +43,14 @@ struct EventCard: View {
             formatDate()
             scheduleNotification()
         }
+//        .onChange(of: event.doe) { _ in
+//            formatDate()
+//            scheduleNotification()
+//        }
+//        .onChange(of: event.allDay) { _ in
+//            formatDate()
+//            scheduleNotification()
+//        }
         .onReceive(timer) { _ in
             if event.timeLeft == "0 minutes left" {
                 timer.upstream.connect().cancel()
@@ -59,9 +67,15 @@ struct EventCard: View {
     }
 
     func formatDate() {
-        let dayComp = Calendar.current.dateComponents([.day], from: Date.now, to: event.doe)
-        let hourComp = Calendar.current.dateComponents([.hour], from: Date.now, to: event.doe)
-        let minComp = Calendar.current.dateComponents([.minute], from: Date.now, to: event.doe)
+        let cal = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: event.doe) ?? Date.now
+
+        var current: Date {
+            event.allDay ? cal : event.doe
+        }
+
+        let dayComp = Calendar.current.dateComponents([.day], from: Date.now, to: current)
+        let hourComp = Calendar.current.dateComponents([.hour], from: Date.now, to: current)
+        let minComp = Calendar.current.dateComponents([.minute], from: Date.now, to: current)
 
         guard let days = dayComp.day,
               let hours = hourComp.hour,
@@ -87,9 +101,23 @@ struct EventCard: View {
         content.title = event.name
         content.sound = UNNotificationSound.default
 
-        let comps = Calendar.current.dateComponents([.day, .hour, .minute], from: event.doe)
+        let comps = Calendar.current.dateComponents(
+            [.month, .day, .hour, .minute],
+            from: event.doe
+        )
 
-        let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: false)
+        let cal = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: event.doe) ?? Date.now
+
+        let allDayComps = Calendar.current.dateComponents(
+            [.month, .day, .hour, .minute],
+            from: cal
+        )
+
+        let trigger = UNCalendarNotificationTrigger(
+            dateMatching: event.allDay ? allDayComps : comps,
+            repeats: event.repeatYearly
+        )
+
         let request = UNNotificationRequest(
             identifier: UUID().uuidString,
             content: content,

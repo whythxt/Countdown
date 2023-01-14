@@ -13,6 +13,7 @@
 		AB0F4F6F296B21360009CDF5 /* Thread-Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0F4F6E296B21360009CDF5 /* Thread-Tests.swift */; };
 		AB0F4F71296B22EF0009CDF5 /* AddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0F4F70296B22EF0009CDF5 /* AddViewModel.swift */; };
 		AB0F4F75296DC7930009CDF5 /* RelationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0F4F74296DC7930009CDF5 /* RelationProvider.swift */; };
+		AB0F4F7F2972F24E0009CDF5 /* CountdownTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0F4F7E2972F24E0009CDF5 /* CountdownTests.swift */; };
 		AB270FE5295BB146008BCAF3 /* CountdownApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB270FE4295BB146008BCAF3 /* CountdownApp.swift */; };
 		AB270FE7295BB146008BCAF3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB270FE6295BB146008BCAF3 /* ContentView.swift */; };
 		AB270FE9295BB147008BCAF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB270FE8295BB147008BCAF3 /* Assets.xcassets */; };
@@ -29,6 +30,16 @@
 		ABBD80C42961AB75007C9AD9 /* RelationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBD80C32961AB75007C9AD9 /* RelationCard.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		AB0F4F802972F24E0009CDF5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AB270FD9295BB146008BCAF3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AB270FE0295BB146008BCAF3;
+			remoteInfo = Countdown;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		AB0F4F68296B1E5C0009CDF5 /* Events.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Events.xcdatamodel; sourceTree = "<group>"; };
 		AB0F4F6A296B20550009CDF5 /* EnvironmentValues-Preview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EnvironmentValues-Preview.swift"; sourceTree = "<group>"; };
@@ -37,6 +48,8 @@
 		AB0F4F70296B22EF0009CDF5 /* AddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewModel.swift; sourceTree = "<group>"; };
 		AB0F4F74296DC7930009CDF5 /* RelationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationProvider.swift; sourceTree = "<group>"; };
 		AB0F4F77296DE52A0009CDF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		AB0F4F7C2972F24E0009CDF5 /* CountdownTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CountdownTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB0F4F7E2972F24E0009CDF5 /* CountdownTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownTests.swift; sourceTree = "<group>"; };
 		AB270FE1295BB146008BCAF3 /* Countdown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Countdown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB270FE4295BB146008BCAF3 /* CountdownApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownApp.swift; sourceTree = "<group>"; };
 		AB270FE6295BB146008BCAF3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -55,6 +68,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		AB0F4F792972F24E0009CDF5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AB270FDE295BB146008BCAF3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -82,10 +102,19 @@
 			path = Providers;
 			sourceTree = "<group>";
 		};
+		AB0F4F7D2972F24E0009CDF5 /* CountdownTests */ = {
+			isa = PBXGroup;
+			children = (
+				AB0F4F7E2972F24E0009CDF5 /* CountdownTests.swift */,
+			);
+			path = CountdownTests;
+			sourceTree = "<group>";
+		};
 		AB270FD8295BB146008BCAF3 = {
 			isa = PBXGroup;
 			children = (
 				AB270FE3295BB146008BCAF3 /* Countdown */,
+				AB0F4F7D2972F24E0009CDF5 /* CountdownTests */,
 				AB270FE2295BB146008BCAF3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -94,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				AB270FE1295BB146008BCAF3 /* Countdown.app */,
+				AB0F4F7C2972F24E0009CDF5 /* CountdownTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -168,6 +198,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		AB0F4F7B2972F24E0009CDF5 /* CountdownTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AB0F4F822972F24E0009CDF5 /* Build configuration list for PBXNativeTarget "CountdownTests" */;
+			buildPhases = (
+				AB0F4F782972F24E0009CDF5 /* Sources */,
+				AB0F4F792972F24E0009CDF5 /* Frameworks */,
+				AB0F4F7A2972F24E0009CDF5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AB0F4F812972F24E0009CDF5 /* PBXTargetDependency */,
+			);
+			name = CountdownTests;
+			productName = CountdownTests;
+			productReference = AB0F4F7C2972F24E0009CDF5 /* CountdownTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		AB270FE0295BB146008BCAF3 /* Countdown */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = AB270FEF295BB147008BCAF3 /* Build configuration list for PBXNativeTarget "Countdown" */;
@@ -195,6 +243,10 @@
 				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1420;
 				TargetAttributes = {
+					AB0F4F7B2972F24E0009CDF5 = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = AB270FE0295BB146008BCAF3;
+					};
 					AB270FE0295BB146008BCAF3 = {
 						CreatedOnToolsVersion = 14.2;
 					};
@@ -214,11 +266,19 @@
 			projectRoot = "";
 			targets = (
 				AB270FE0295BB146008BCAF3 /* Countdown */,
+				AB0F4F7B2972F24E0009CDF5 /* CountdownTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		AB0F4F7A2972F24E0009CDF5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AB270FDF295BB146008BCAF3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -231,6 +291,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		AB0F4F782972F24E0009CDF5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB0F4F7F2972F24E0009CDF5 /* CountdownTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AB270FDD295BB146008BCAF3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -258,7 +326,51 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		AB0F4F812972F24E0009CDF5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AB270FE0295BB146008BCAF3 /* Countdown */;
+			targetProxy = AB0F4F802972F24E0009CDF5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		AB0F4F832972F24E0009CDF5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3KU8C49PA9;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = whythat.CountdownTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Countdown.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Countdown";
+			};
+			name = Debug;
+		};
+		AB0F4F842972F24E0009CDF5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3KU8C49PA9;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = whythat.CountdownTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Countdown.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Countdown";
+			};
+			name = Release;
+		};
 		AB270FED295BB147008BCAF3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -436,6 +548,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		AB0F4F822972F24E0009CDF5 /* Build configuration list for PBXNativeTarget "CountdownTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB0F4F832972F24E0009CDF5 /* Debug */,
+				AB0F4F842972F24E0009CDF5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		AB270FDC295BB146008BCAF3 /* Build configuration list for PBXProject "Countdown" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -19,7 +19,6 @@ final class Event: NSManagedObject, Identifiable {
     @NSManaged var doe: Date
     @NSManaged var allDay: Bool
     @NSManaged var repeatYearly: Bool
-    @NSManaged var onFinish: Bool
     @NSManaged var oneDayBefore: Bool
     @NSManaged var oneWeekBefore: Bool
 
@@ -29,7 +28,6 @@ final class Event: NSManagedObject, Identifiable {
         setPrimitiveValue(Date.now, forKey: "doe")
         setPrimitiveValue(false, forKey: "allDay")
         setPrimitiveValue(false, forKey: "repeatYearly")
-        setPrimitiveValue(false, forKey: "onFinish")
         setPrimitiveValue(false, forKey: "oneDayBefore")
         setPrimitiveValue(false, forKey: "oneWeekBefore")
     }
@@ -66,11 +64,10 @@ final class Event: NSManagedObject, Identifiable {
             let event = Event(context: context)
             event.name = "item \(i)"
             event.emoji = "🎂\(i)"
-            event.timeLeft = "2 hours left"
+            event.timeLeft = "\(i) hours left"
             event.doe = Calendar.current.date(byAdding: .day, value: i, to: .now) ?? .now
-            event.allDay = Bool.random()
+            event.allDay = false
             event.repeatYearly = Bool.random()
-            event.onFinish = Bool.random()
             event.oneDayBefore = Bool.random()
             event.oneWeekBefore = Bool.random()
 
