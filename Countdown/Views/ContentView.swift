@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    var notifier = NotificationsProvider.shared
     var provider = EventsProvider.shared
 
     @StateObject var rp = RelationProvider()
@@ -32,12 +33,12 @@ struct ContentView: View {
             }
             .padding()
             .toolbar(.hidden)
-            .sheet(item: $eventToEdit) {
+            .fullScreenCover(item: $eventToEdit) {
                 eventToEdit = nil
             } content: { event in
                 AddEventView(vm: .init(provider: provider, event: event))
             }
-            .sheet(isPresented: $showingRelationSheet) {
+            .fullScreenCover(isPresented: $showingRelationSheet) {
                 AddRelationView(rp: rp)
             }
             .onChange(of: sort) { newSort in
@@ -108,15 +109,8 @@ struct ContentView: View {
                             EventCard(provider: provider, event: event)
                                 .padding(1)
                                 .contextMenu {
-                                    Button("Edit") {
-                                        eventToEdit = event
-                                    }
-
-                                    Button("Delete", role: .destructive) {
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){ 
-                                            try? provider.delete(event, in: provider.viewContext)
-                                        }
-                                    }
+                                    Button("Edit") { eventToEdit = event }
+                                    Button("Delete", role: .destructive) { deleteEvent(event) }
                                 }
                         }
                     }
@@ -177,6 +171,14 @@ struct ContentView: View {
         } else {
             sort = .asc
         }
+    }
+
+    func deleteEvent(_ event: Event) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            try? provider.delete(event, in: provider.viewContext)
+        }
+
+        notifier.removeNotification(for: event)
     }
 }
 

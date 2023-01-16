@@ -11,6 +11,7 @@ import UserNotifications
 struct EventCard: View {
     @Environment(\.managedObjectContext) private var moc
 
+    let notifier = NotificationsProvider.shared
     let provider: EventsProvider
     let timer = Timer.publish(every: 60, tolerance: 0.5, on: .main, in: .common).autoconnect()
 
@@ -40,22 +41,23 @@ struct EventCard: View {
                 }
         }
         .onAppear {
-            formatDate()
-            scheduleNotification()
-        }
-//        .onChange(of: event.doe) { _ in
-//            formatDate()
-//            scheduleNotification()
-//        }
-//        .onChange(of: event.allDay) { _ in
-//            formatDate()
-//            scheduleNotification()
-//        }
-        .onReceive(timer) { _ in
-            if event.timeLeft == "0 minutes left" {
+            if event.timeLeft == "Congrats!" {
                 timer.upstream.connect().cancel()
             } else {
-                formatDate()
+                notifier.formatDate(for: event)
+            }
+        }
+        .onChange(of: event.doe) { _ in
+            notifier.formatDate(for: event)
+        }
+        .onChange(of: event.allDay) { _ in
+            notifier.formatDate(for: event)
+        }
+        .onReceive(timer) { _ in
+            if event.timeLeft == "Congrats!" {
+                timer.upstream.connect().cancel()
+            } else {
+                notifier.formatDate(for: event)
             }
         }
         .padding()
@@ -64,67 +66,6 @@ struct EventCard: View {
                 .foregroundColor(.white)
                 .shadow(radius: 1)
         }
-    }
-
-    func formatDate() {
-        let cal = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: event.doe) ?? Date.now
-
-        var current: Date {
-            event.allDay ? cal : event.doe
-        }
-
-        let dayComp = Calendar.current.dateComponents([.day], from: Date.now, to: current)
-        let hourComp = Calendar.current.dateComponents([.hour], from: Date.now, to: current)
-        let minComp = Calendar.current.dateComponents([.minute], from: Date.now, to: current)
-
-        guard let days = dayComp.day,
-              let hours = hourComp.hour,
-              let minutes = minComp.minute
-        else { return }
-
-        if days < 2 {
-            if hours <= 1 {
-                event.timeLeft = "\(minutes) minutes left"
-            } else {
-                event.timeLeft = "\(hours) hours left"
-            }
-        } else {
-            event.timeLeft = "\(days) days left"
-        }
-    }
-
-    func scheduleNotification() {
-        let center = UNUserNotificationCenter.current()
-        center.removeAllPendingNotificationRequests()
-
-        let content = UNMutableNotificationContent()
-        content.title = event.name
-        content.sound = UNNotificationSound.default
-
-        let comps = Calendar.current.dateComponents(
-            [.month, .day, .hour, .minute],
-            from: event.doe
-        )
-
-        let cal = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: event.doe) ?? Date.now
-
-        let allDayComps = Calendar.current.dateComponents(
-            [.month, .day, .hour, .minute],
-            from: cal
-        )
-
-        let trigger = UNCalendarNotificationTrigger(
-            dateMatching: event.allDay ? allDayComps : comps,
-            repeats: event.repeatYearly
-        )
-
-        let request = UNNotificationRequest(
-            identifier: UUID().uuidString,
-            content: content,
-            trigger: trigger
-        )
-
-        center.add(request)
     }
 }
 

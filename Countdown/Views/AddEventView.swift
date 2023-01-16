@@ -84,13 +84,11 @@ struct AddEventView: View {
                 .headerStyle()
 
             TextField("", text: $vm.event.emoji)
+                .font(.title)
                 .autocorrectionDisabled()
+                .multilineTextAlignment(.center)
                 .frame(width: 50, height: 50)
                 .background(RoundedRectangle(cornerRadius: 64).stroke())
-                .overlay {
-                    Text("+")
-                        .font(.title)
-                }
                 .foregroundColor(.blue)
                 .padding(.leading, 1)
         }
